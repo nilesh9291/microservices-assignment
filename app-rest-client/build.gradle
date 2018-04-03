@@ -1,0 +1,11 @@
+group = 'com.springboot'
+version = '0.0.1-SNAPSHOT'
+
+description = """app-rest-client"""
+
+apply plugin: 'application'
+mainClassName = 'com.resttemplate.RestClientApplication'
+
+dependencies {
+    compile group: 'com.springboot', name: 'app-commons', version:'0.0.1-SNAPSHOT'
+}

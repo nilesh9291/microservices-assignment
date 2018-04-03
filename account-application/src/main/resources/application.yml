@@ -1,0 +1,19 @@
+server:
+  port: 8081
+  contextPath: /account-application
+---
+
+spring:
+  profiles.active: dev
+---
+spring:
+  profiles: dev
+  logging:
+    file: logs/dev_app.log
+    pattern:
+      console: "%d %-5level %logger : %msg%n"
+      file: "%d %-5level [%thread] %logger : %msg%n"
+    level:
+      org.springframework.web: DEBUG
+      com.springboot.app.controllers: DEBUG
+      org.hibernate: DEBUG  

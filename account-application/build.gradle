@@ -1,0 +1,11 @@
+group = 'com.springboot'
+version = '0.0.1-SNAPSHOT'
+
+description = """account-application"""
+
+apply plugin: 'application'
+mainClassName = 'com.rest.accountapp.AccountApplication'
+
+dependencies {
+    compile group: 'com.springboot', name: 'app-commons', version:'0.0.1-SNAPSHOT'
+}

@@ -1,0 +1,5 @@
+group = 'com.springboot'
+version = '0.0.1-SNAPSHOT'
+
+description = """app-commons"""
+
