@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,17 +25,18 @@ public class Account implements Serializable {
     private Long id;
 
     @ApiModelProperty(notes = "Account type e.g. Savings, Current, Loan")
-    @NotNull
-    @Size(max = 15)
+    //@NotEmpty(message = "Account type can not be empty.")
+	//@Size(min=2, max=15, message = "Account type must be between 2 to 15 characters.")
     private String type;
     
     @ApiModelProperty(notes = "Account number")
-    @NotNull
-    @Size(max = 15)
+    //@NotEmpty(message = "Account number can not be empty.")
+	//@Size(min=13, max=15, message = "Account type must be maximum 15 characters.")    
     private String accountNumber;
 
     @ApiModelProperty(notes = "Account Description")
-    @NotNull
+    //@NotEmpty(message = "Account Description can not be empty.")
+	//@Size(min=2, max=50, message = "Account Description must be between 2 to 100 characters.")
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)

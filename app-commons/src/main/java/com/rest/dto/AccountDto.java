@@ -1,18 +1,22 @@
 package com.rest.dto;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-//@Data
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class AccountDto {   
    	private Long id;
-
-    @NotNull(message = "Type can not be null.")
+        
+    @NotEmpty(message = "Account type can not be empty.")
+	@Size(min=2, max=15, message = "Account type must be between 2 to 15 characters.")
     private String type;
-    
-    @NotNull(message = "Account Number can not be null.")
-    private String accountNumber;
+   
+    //@NotEmpty(message = "Account number can not be empty.")
+	//@Size(min=15, max=15, message = "Account type must be maximum 15 characters.")    
+    //private String accountNumber;
 
-    @NotNull(message = "Description can not be null.")
+    @NotEmpty(message = "Account Description can not be empty.")
+	@Size(min=2, max=50, message = "Account Description must be between 2 to 100 characters.")
     private String description;
 
     private long userId;
@@ -21,10 +25,10 @@ public class AccountDto {
     	
     }
 
-	public AccountDto(String type, String accountNumber, String description, long userId) {
+	public AccountDto(String type, String description, long userId) {
 		super();
 		this.type = type;
-		this.accountNumber = accountNumber;
+		//this.accountNumber = accountNumber;
 		this.description = description;
 		this.userId = userId;
 	}
@@ -45,13 +49,13 @@ public class AccountDto {
 		this.type = type;
 	}
 
-	public String getAccountNumber() {
+	/*public String getAccountNumber() {
 		return accountNumber;
 	}
 
 	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
-	}
+	}*/
 
 	public String getDescription() {
 		return description;
@@ -71,7 +75,7 @@ public class AccountDto {
 
 	@Override
 	public String toString() {
-		return "AccountDto [id=" + id + ", type=" + type + ", accountNumber=" + accountNumber + ", description="
+		return "AccountDto [id=" + id + ", type=" + type /*+ ", accountNumber=" + accountNumber */ + ", description="
 				+ description + ", userId=" + userId + "]";
 	}		
 }

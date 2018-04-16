@@ -11,9 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -33,30 +31,22 @@ public class User implements Serializable {
     private Long id;
 	
 	@ApiModelProperty(notes = "The unique username of the user.")	
-    @NotNull
-    //@Min(6)
-	//@Max(20)
+	@NotEmpty(message = "User Name can not be empty.")
 	@Size(min=2, max=20, message = "User Name must be between 2 to 20 characters.")
-	@NotEmpty//(message = "userName can not be empty.")
 	private String userName;
 	
     @ApiModelProperty(notes = "User's first name")
-    @NotNull
-    //@Min(2)
-	//@Max(20)
+    @NotEmpty(message = "First Name can not be empty.")
     @Size(min=2, max=20, message = "First Name must be between 2 to 20 characters.")
 	private String firstName;
 
     @ApiModelProperty(notes = "User's last name")
-    @NotNull
-    //@Min(2)
-	//@Max(20)
+    @NotEmpty(message = "Last Name can not be empty.")
     @Size(min=2, max=20, message = "Last Name must be between 2 to 20 characters.")
 	private String lastName;
     	
     @ApiModelProperty(notes = "User's age")
-    @Min(18)
-    //@Size(min=18, max=60, message = "User's age must be above 18.")
+    @Min(value = 18, message="User's age must be above 18.")
     private int age;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")

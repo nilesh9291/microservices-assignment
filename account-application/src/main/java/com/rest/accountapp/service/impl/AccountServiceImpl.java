@@ -32,7 +32,7 @@ public class AccountServiceImpl implements AccountService {
 		}
 		
 		Account account = new Account();
-		account.setAccountNumber(accountDto.getAccountNumber());
+		account.setAccountNumber(String.valueOf(System.currentTimeMillis()));
 		account.setDescription(accountDto.getDescription());
 		account.setType(accountDto.getType());
 		
