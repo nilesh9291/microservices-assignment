@@ -7,6 +7,6 @@ apply plugin: 'application'
 mainClassName = 'com.rest.userapp.UserApplication'
 
 dependencies {
-    compile group: 'com.springboot', name: 'app-commons', version:'0.0.1-SNAPSHOT'
+    compile project(':app-commons')
 }
 

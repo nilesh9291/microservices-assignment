@@ -9,5 +9,5 @@ public interface UserAggregateService {
 
 //	List<Account> findAllAccounts(long id);
 	
-	public List<User> findAllUsersAndAccounts();
+	//List<User> findAllUsersAndAccounts();
 }

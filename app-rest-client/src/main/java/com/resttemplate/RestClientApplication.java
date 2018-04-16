@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 
-import com.rest.utils.ApplicationConstants;
+import com.rest.constant.ApplicationConstants;
 import com.resttemplate.client.AccountOperationsRestfulClient;
 import com.resttemplate.client.UserOperationsRestfulClient;
 

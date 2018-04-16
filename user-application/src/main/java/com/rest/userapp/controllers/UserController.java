@@ -7,6 +7,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,10 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rest.entity.Account;
+import com.rest.constant.ApplicationConstants;
 import com.rest.entity.User;
+import com.rest.enums.ResponseStatus;
 import com.rest.userapp.service.UserService;
-import com.rest.utils.ApplicationConstants;
+import com.rest.wrapper.ResponseWrapper;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,8 +47,11 @@ public class UserController {
     	}
     )
 	@PostMapping
-	public User save(@Valid @RequestBody User user) {				
-		return userService.save(user);
+	//public User save(@Valid @RequestBody User user) {	
+	public ResponseEntity<ResponseWrapper<User>> save(@Valid @RequestBody User user) {
+		//userService.save(user);
+		
+		return new ResponseEntity<ResponseWrapper<User>>(new ResponseWrapper<User>(ResponseStatus.SUCCESS,userService.save(user)),HttpStatus.CREATED);
 	}
 
 	// ------------------- Update a User-------------------------------------------
@@ -57,8 +63,9 @@ public class UserController {
     	}
     )
 	@PutMapping(value = "/{id}")
-	public User update(@PathVariable("id") long id, @RequestBody User user) {
-		return userService.update(user);
+	public ResponseEntity<ResponseWrapper<User>> update(@PathVariable("id") long id, @RequestBody User user) {
+		//return userService.update(user);
+		return new ResponseEntity<ResponseWrapper<User>>(new ResponseWrapper<User>(ResponseStatus.SUCCESS,userService.update(user)),HttpStatus.OK);
 	}
 
 	// -------------------Retrieve Single User ------------------------------------------
@@ -69,8 +76,9 @@ public class UserController {
     	}
     )
 	@GetMapping(value = "/{id}")
-	public User getById(@PathVariable("id") long id) {		
-		return userService.findById(id);
+	public ResponseEntity<ResponseWrapper<User>> getById(@PathVariable("id") long id) {		
+		//return userService.findById(id);
+		return new ResponseEntity<ResponseWrapper<User>>(new ResponseWrapper<User>(ResponseStatus.SUCCESS,userService.findById(id)),HttpStatus.OK);
 	}
 
 	// -------------------Retrieve All User ------------------------------------------	
@@ -83,39 +91,11 @@ public class UserController {
     	}
     )
 	@GetMapping(value = "/")
-	public List<User> getAll() {		
-		return userService.findAll();
+	public ResponseEntity<ResponseWrapper<List<User>>> getAll() {		
+		//return userService.findAll();
+		return new ResponseEntity<ResponseWrapper<List<User>>>(new ResponseWrapper<List<User>>(ResponseStatus.SUCCESS,userService.findAll()),HttpStatus.OK);
 	}
-	
-	// -------------------Retrieve All Users and Accounts------------------------------------------
-	@ApiOperation(value = "Retrieve All Users and Accounts",response = Iterable.class)
-	@ApiResponses(value = {
-            @ApiResponse(code = 200, message = ApplicationConstants.SUCCESS_200),
-            @ApiResponse(code = 401, message = ApplicationConstants.NOT_AUTHORIZED_401),
-            @ApiResponse(code = 403, message = ApplicationConstants.FORBIDDEN_403),
-            @ApiResponse(code = 404, message = ApplicationConstants.NOT_FOUND_404)
-    	}
-    )
-	@GetMapping(value = "/allUsersAndAccounts")
-	public List<User> getAllUsersAndAccounts() {
-		return userService.findAllUsersAndAccounts();
-	}
-	
-	// -------------------Retrieve All Accounts for a user ------------------------------------------
-	@ApiOperation(value = "Retrieve All Accounts for a user",response = Iterable.class)
-	@ApiResponses(value = {
-            @ApiResponse(code = 200, message = ApplicationConstants.SUCCESS_200),
-            @ApiResponse(code = 401, message = ApplicationConstants.NOT_AUTHORIZED_401),
-            @ApiResponse(code = 403, message = ApplicationConstants.FORBIDDEN_403),
-            @ApiResponse(code = 404, message = ApplicationConstants.NOT_FOUND_404)
-    	}
-    )
-	@GetMapping(value = "/allAccounts/{id}")
-	public List<Account> getAllAccounts(@PathVariable("id") long id) {
 		
-		return userService.findAllAccounts(id);
-	}
-	
 	// ------------------- Delete a User -----------------------------------------
 	@ApiOperation(value = "Delete an user")
 	@ApiResponses(value = {

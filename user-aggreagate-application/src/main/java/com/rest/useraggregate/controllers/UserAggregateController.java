@@ -5,13 +5,17 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rest.constant.ApplicationConstants;
 import com.rest.entity.User;
+import com.rest.enums.ResponseStatus;
 import com.rest.useraggregate.service.UserAggregateService;
-import com.rest.utils.ApplicationConstants;
+import com.rest.wrapper.ResponseWrapper;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +41,8 @@ public class UserAggregateController {
     	}
     )
 	@GetMapping(value = "/")
-	public List<User> getAll() {		
-		return userAggregateService.findAll();
+	public ResponseEntity<ResponseWrapper<List<User>>> getAll() {		
+		//return userAggregateService.findAll();
+		return new ResponseEntity<ResponseWrapper<List<User>>>(new ResponseWrapper<List<User>>(ResponseStatus.SUCCESS,userAggregateService.findAll()),HttpStatus.OK);
 	}	
 }

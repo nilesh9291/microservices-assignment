@@ -15,5 +15,5 @@ spring:
       file: "%d %-5level [%thread] %logger : %msg%n"
     level:
       org.springframework.web: DEBUG
-      com.springboot.app.controllers: DEBUG
+      com.springboot.restapp.controllers: DEBUG
       org.hibernate: DEBUG

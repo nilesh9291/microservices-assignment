@@ -22,6 +22,8 @@ subprojects {
 		compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version:'1.5.2.RELEASE'
 		compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.6.1'
 		compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.6.1'
+		compile group: 'javax.validation', name: 'validation-api', version:'1.0.0.GA'
+		compile group: 'org.hibernate', name: 'hibernate-validator', version:'4.3.1.Final'
 		runtime group: 'mysql', name: 'mysql-connector-java', version:'5.1.41'
 		
 		testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.5.2.RELEASE') {

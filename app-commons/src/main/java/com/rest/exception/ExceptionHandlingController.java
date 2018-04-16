@@ -15,7 +15,7 @@ public class ExceptionHandlingController {
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<ExceptionResponse> resourceNotFound(ResourceNotFoundException ex) {
 		ExceptionResponse response = new ExceptionResponse();
-		response.setErrorCode("Not Found");
+		response.setErrorCode("404");
 		response.setErrorMessage(ex.getMessage());
 
 		return new ResponseEntity<ExceptionResponse>(response, HttpStatus.NOT_FOUND);
@@ -24,7 +24,7 @@ public class ExceptionHandlingController {
 	@ExceptionHandler(ResourceExistsException.class)
 	public ResponseEntity<ExceptionResponse> resourceAlreadyExists(ResourceExistsException ex) {
 		ExceptionResponse response = new ExceptionResponse();
-		response.setErrorCode("Resource Conflict");
+		response.setErrorCode("409");
 		response.setErrorMessage(ex.getMessage());
 
 		return new ResponseEntity<ExceptionResponse>(response, HttpStatus.CONFLICT);

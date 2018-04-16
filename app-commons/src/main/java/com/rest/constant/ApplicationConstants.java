@@ -1,4 +1,4 @@
-package com.rest.utils;
+package com.rest.constant;
 
 public class ApplicationConstants {
 	public static final String ACCOUNT_TYPE_SAVINGS = "Savings";
@@ -20,5 +20,9 @@ public class ApplicationConstants {
 	public static final String NOT_FOUND_404 = "The requested resource could not be found but may be available in the future";
 	
 	public static final String CONFLICT_FOUND_409 = "The request could not be processed because of conflict in the request";
+	
+	public static final String USER_NAME_EXISTS = "The requested user name already exists";
+	
+	public static final String ACCOUNT_TYPE_EXISTS = "The requested account type already exists for this user";
 	
 }

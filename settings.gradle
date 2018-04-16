@@ -1,2 +1,6 @@
 rootProject.name = 'pnc-assignment'
-include ":app-commons", ":user-application", ":account-application", ":user-aggreagate-application", ":app-rest-client"
+
+include 'app-commons'
+include 'user-application'
+include 'account-application'
+include 'user-aggreagate-application'

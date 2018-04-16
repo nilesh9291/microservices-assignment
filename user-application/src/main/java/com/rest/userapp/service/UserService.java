@@ -22,7 +22,7 @@ public interface UserService {//extends CRUDService<User> {
 
 	//boolean isUserExist(String userName);
 	
-	List<Account> findAllAccounts(long id);
+	//List<Account> findAllAccounts(long id);
 	
-	public List<User> findAllUsersAndAccounts();
+	//List<User> findAllUsersAndAccounts();
 }

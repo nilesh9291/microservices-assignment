@@ -15,7 +15,7 @@ import com.rest.exception.ResourceExistsException;
 import com.rest.exception.ResourceNotFoundException;
 import com.rest.repository.AccountRepository;
 import com.rest.repository.UserRepository;
-import com.rest.utils.ApplicationConstants;
+import com.rest.constant.ApplicationConstants;
 
 @Service
 public class AccountServiceImpl implements AccountService {	
@@ -28,7 +28,7 @@ public class AccountServiceImpl implements AccountService {
 	@Transactional
 	public Account save(AccountDto accountDto) {
 		if (accountRepository.findByTypeAndUserId(accountDto.getType(),accountDto.getUserId()) > 0) {
-			throw new ResourceExistsException(accountDto.getType(), ApplicationConstants.CONFLICT_FOUND_409);
+			throw new ResourceExistsException(ApplicationConstants.ACCOUNT_TYPE_EXISTS);
 		}
 		
 		Account account = new Account();
@@ -50,7 +50,7 @@ public class AccountServiceImpl implements AccountService {
 		Account account =  accountRepository.findOne(id);
 		
 		if (account == null) {
-            throw new ResourceNotFoundException(id, ApplicationConstants.NOT_FOUND_404);
+            throw new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_404);
         }
 		
 		return account;
@@ -60,7 +60,7 @@ public class AccountServiceImpl implements AccountService {
 		List<Account> accountList = accountRepository.findAll();
 		
 		if(accountList == null || accountList.size() == 0) {
-			throw new ResourceNotFoundException(null, ApplicationConstants.NOT_FOUND_404);
+			throw new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_404);
 		}
 				
 		return accountList;
@@ -70,7 +70,7 @@ public class AccountServiceImpl implements AccountService {
 		Account account =  accountRepository.findOne(id);
 		
 		if (account == null) {
-            throw new ResourceNotFoundException(id, ApplicationConstants.NOT_FOUND_404);
+            throw new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_404);
         }
 				
 		accountRepository.delete(id);
