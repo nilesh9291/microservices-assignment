@@ -1,72 +1,79 @@
 package com.rest.userapp.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rest.entity.User;
-import com.rest.exception.ResourceExistsException;
-import com.rest.exception.ResourceNotFoundException;
-import com.rest.repository.UserRepository;
+import com.rest.userapp.constants.UserApplicationConstants;
+import com.rest.userapp.dto.UserDto;
+import com.rest.userapp.entity.User;
+import com.rest.userapp.exception.UserAlreadyExistsException;
+import com.rest.userapp.exception.UserNotFoundException;
+import com.rest.userapp.mapper.UserMapper;
+import com.rest.userapp.repository.UserRepository;
 import com.rest.userapp.service.UserService;
-import com.rest.constant.ApplicationConstants;
 
 @Service
 public class UserServiceImpl implements UserService {	
 	@Autowired
 	private UserRepository userRepository;
 	
-	
-	@Transactional
-	public User save(User user) {		
-		if (userRepository.findByUserName(user.getUserName()) != null) {
-			 throw new ResourceExistsException(ApplicationConstants.USER_NAME_EXISTS);
-		}
+	@Autowired
+	private UserMapper userMapper;
 		
-		return userRepository.save(user);
+	@Transactional
+	public UserDto save(UserDto userDto) {		
+		if (userRepository.findByUserName(userDto.getUserName()) != null) {
+			 throw new UserAlreadyExistsException(UserApplicationConstants.USER_NAME_EXISTS);
+		}		
+		
+		return userMapper.convertEntityToDto(userRepository.save(userMapper.convertDtoToEntity(userDto)));
 	}
 
-	public User update(User user) {
-		return userRepository.save(user);
+	public UserDto update(UserDto userDto) {
+		return userMapper.convertEntityToDto(userRepository.save(userMapper.convertDtoToEntity(userDto)));
 	}
 	
-	public User findById(long id) {
-		User user =  userRepository.findOne(id);
+	public UserDto findById(long userId) {
+		User user =  userRepository.findOne(userId);
 		
 		if (user == null) {
-            throw new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_404);
+            throw new UserNotFoundException(UserApplicationConstants.NOT_FOUND_404);
         }
 		
-		return user;
+		return userMapper.convertEntityToDto(user);
 	}
 	
-	public List<User> findAll() {
+	public List<UserDto> findAll() {
 		List<User> userList = userRepository.findAll();
 				
 		if(userList == null || userList.size() == 0) {
-			throw new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_404);
+			throw new UserNotFoundException(UserApplicationConstants.NOT_FOUND_404);
 		}
-				
-		return userList;
+						
+		return userList.stream()
+				.map(user -> userMapper.convertEntityToDto(user))
+				.collect(Collectors.toList());
 	}
 			
-	public void delete(long id) {
-		User user =  userRepository.findOne(id);
+	public void delete(long userId) {
+		User user =  userRepository.findOne(userId);
 		
 		if (user == null) {
-            throw new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_404);
+            throw new UserNotFoundException(UserApplicationConstants.NOT_FOUND_404);
         }
-		userRepository.delete(id);
+		userRepository.delete(userId);
 	}
 	
 	public void deleteAll() {
 		userRepository.deleteAll();
 	}
 	
-	public User findByUserName(String name) {		
-		return userRepository.findByUserName(name);
+	public UserDto findByUserName(String name) {		
+		return userMapper.convertEntityToDto(userRepository.findByUserName(name));
 	}
 }

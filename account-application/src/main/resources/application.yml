@@ -4,16 +4,26 @@ server:
 ---
 
 spring:
-  profiles.active: dev
+  profiles.active: dev,prod
 ---
 spring:
   profiles: dev
   logging:
-    file: logs/dev_app.log
+    path: logs/dev_app.log
     pattern:
       console: "%d %-5level %logger : %msg%n"
       file: "%d %-5level [%thread] %logger : %msg%n"
     level:
       org.springframework.web: DEBUG
-      com.springboot.app.controllers: DEBUG
-      org.hibernate: DEBUG  
+      com.rest.accountapp.controllers: DEBUG
+      org.hibernate: DEBUG
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:mysql://localhost:3306/pnc_account_db
+    username: testuser
+    password: testuser@123
+    driverClassName: com.mysql.jdbc.Driver

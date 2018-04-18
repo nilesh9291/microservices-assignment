@@ -2,23 +2,22 @@ package com.rest.accountapp.service;
 
 import java.util.List;
 
-import com.rest.dto.AccountDto;
-import com.rest.entity.Account;
+import com.rest.accountapp.dto.AccountDto;
 
 public interface AccountService {	
 
-	Account save(AccountDto accountDto);
+	AccountDto save(AccountDto accountDto);
 
-	Account update(Account account);
+	AccountDto update(AccountDto accountDto);
 	
-	Account findById(long id);
+	AccountDto findById(long accountId);
 
-	List<Account> findAll();
+	List<AccountDto> findAll();
 
-	void delete(long id);
+	void delete(long accountId);
 	
 	void deleteAll();
 	
-	List<Account> findByUserId(long userId);
+	List<AccountDto> findByUserId(long userId);
 
 }

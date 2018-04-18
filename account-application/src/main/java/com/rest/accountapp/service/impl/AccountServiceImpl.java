@@ -1,21 +1,21 @@
 package com.rest.accountapp.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.rest.accountapp.constants.AccountAppConstants;
+import com.rest.accountapp.dto.AccountDto;
+import com.rest.accountapp.entity.Account;
+import com.rest.accountapp.exceptions.AccountAlreadyExistsException;
+import com.rest.accountapp.exceptions.AccountNotFoundException;
+import com.rest.accountapp.mapper.AccountMapper;
+import com.rest.accountapp.repository.AccountRepository;
 import com.rest.accountapp.service.AccountService;
-import com.rest.dto.AccountDto;
-import com.rest.entity.Account;
-import com.rest.entity.User;
-import com.rest.exception.ResourceExistsException;
-import com.rest.exception.ResourceNotFoundException;
-import com.rest.repository.AccountRepository;
-import com.rest.repository.UserRepository;
-import com.rest.constant.ApplicationConstants;
 
 @Service
 public class AccountServiceImpl implements AccountService {	
@@ -23,57 +23,53 @@ public class AccountServiceImpl implements AccountService {
 	private AccountRepository accountRepository;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private AccountMapper accountMapper;
 
 	@Transactional
-	public Account save(AccountDto accountDto) {
+	public AccountDto save(com.rest.accountapp.dto.AccountDto accountDto) {
 		if (accountRepository.findByTypeAndUserId(accountDto.getType(),accountDto.getUserId()) > 0) {
-			throw new ResourceExistsException(ApplicationConstants.ACCOUNT_TYPE_EXISTS);
+			throw new AccountAlreadyExistsException(AccountAppConstants.ACCOUNT_TYPE_EXISTS);
 		}
 		
-		Account account = new Account();
-		account.setAccountNumber(String.valueOf(System.currentTimeMillis()));
-		account.setDescription(accountDto.getDescription());
-		account.setType(accountDto.getType());
-		
-		User user = userRepository.findOne(accountDto.getUserId());
-		account.setUser(user);
-		
-		return accountRepository.save(account);
+		accountDto.setAccountNumber(String.valueOf(System.currentTimeMillis()));
+						
+		return accountMapper.convertEntityToDto(accountRepository.save(accountMapper.convertDtoToEntity(accountDto)));
 	}
 
-	public Account update(Account account) {		
-		return accountRepository.save(account);
+	public AccountDto update(AccountDto accountDto) {		
+		return accountMapper.convertEntityToDto(accountRepository.save(accountMapper.convertDtoToEntity(accountDto)));
 	}
 	
-	public Account findById(long id) {		
-		Account account =  accountRepository.findOne(id);
+	public AccountDto findById(long accountId) {		
+		Account account =  accountRepository.findOne(accountId);
 		
 		if (account == null) {
-            throw new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_404);
+            throw new AccountNotFoundException(AccountAppConstants.NOT_FOUND_404);
         }
 		
-		return account;
+		return accountMapper.convertEntityToDto(account);
 	}
 	
-	public List<Account> findAll() {
+	public List<AccountDto> findAll() {
 		List<Account> accountList = accountRepository.findAll();
 		
 		if(accountList == null || accountList.size() == 0) {
-			throw new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_404);
+			throw new AccountNotFoundException(AccountAppConstants.NOT_FOUND_404);
 		}
 				
-		return accountList;
+		return accountList.stream()
+				.map(account -> accountMapper.convertEntityToDto(account))
+				.collect(Collectors.toList());
 	}	
 
-	public void delete(long id) {
-		Account account =  accountRepository.findOne(id);
+	public void delete(long accountId) {
+		Account account =  accountRepository.findOne(accountId);
 		
 		if (account == null) {
-            throw new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_404);
+            throw new AccountNotFoundException(AccountAppConstants.NOT_FOUND_404);
         }
 				
-		accountRepository.delete(id);
+		accountRepository.delete(accountId);
 	}
 	
 	public void deleteAll() {
@@ -81,13 +77,11 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public List<Account> findByUserId(long userId) {
+	public List<AccountDto> findByUserId(long userId) {
 		List<Account> accountList = accountRepository.findByUserId(userId);
-		
-		/*if(accountList == null || accountList.size() == 0) {
-			throw new ResourceNotFoundException(null, ApplicationConstants.NOT_FOUND_404);
-		}*/
-				
-		return accountList;
+						
+		return accountList.stream()
+				.map(account->accountMapper.convertEntityToDto(account))
+				.collect(Collectors.toList());
 	}
 }

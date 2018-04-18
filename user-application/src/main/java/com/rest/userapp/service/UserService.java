@@ -2,27 +2,20 @@ package com.rest.userapp.service;
 
 import java.util.List;
 
-import com.rest.entity.Account;
-import com.rest.entity.User;
+import com.rest.userapp.dto.UserDto;
 
-public interface UserService {//extends CRUDService<User> {
-	User save(User user);
+public interface UserService {
+	UserDto save(UserDto userDto);
 	
-	User update(User user);
+	UserDto update(UserDto userDto);
 
-	User findById(long id);
+	UserDto findById(long id);
 
-	List<User> findAll();
+	List<UserDto> findAll();
 
-	void delete(long id);
+	void delete(long userId);
 	
 	void deleteAll();
 
-	User findByUserName(String userName);
-
-	//boolean isUserExist(String userName);
-	
-	//List<Account> findAllAccounts(long id);
-	
-	//List<User> findAllUsersAndAccounts();
+	UserDto findByUserName(String userName);
 }
