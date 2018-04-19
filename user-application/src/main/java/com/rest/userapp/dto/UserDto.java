@@ -53,6 +53,12 @@ public class UserDto implements Serializable {
 		this.userId = userId;
 	}
 
+	public UserDto(String userName, String firstName, String lastName, int age) {
+		this.userName = userName;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+	}
 
 	public UserDto(Long userId, String userName, String firstName, String lastName, int age) {
 		super();
@@ -62,7 +68,6 @@ public class UserDto implements Serializable {
 		this.lastName = lastName;
 		this.age = age;
 	}
-
 
 	public String getUserName() {
 		return userName;

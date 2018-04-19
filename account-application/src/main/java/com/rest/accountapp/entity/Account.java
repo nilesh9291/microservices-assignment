@@ -27,8 +27,16 @@ public class Account implements Serializable {
     public Account() {
     	
     }
-   
-    public Account(String type, String accountNumber, String description, Long userId) {
+
+	public Account(Long id, String type, String accountNumber, String description, Long userId) {
+		this.id = id;
+		this.type = type;
+		this.accountNumber = accountNumber;
+		this.description = description;
+		this.userId = userId;
+	}
+
+	public Account(String type, String accountNumber, String description, Long userId) {
 		super();
 		this.type = type;
 		this.accountNumber = accountNumber;

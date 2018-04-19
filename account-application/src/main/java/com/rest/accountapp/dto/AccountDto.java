@@ -56,14 +56,23 @@ public class AccountDto implements Serializable {
     public AccountDto() {
     	
     }
-   
-    public AccountDto(String type, String accountNumber, String description, Long userId) {
+
+	public AccountDto(Long accountId, String type, String accountNumber, String description, Long userId) {
+		this.accountId = accountId;
+		this.type = type;
+		this.accountNumber = accountNumber;
+		this.description = description;
+		this.userId = userId;
+	}
+
+	public AccountDto(String type, String accountNumber, String description, Long userId) {
 		super();
 		this.type = type;
 		this.accountNumber = accountNumber;
 		this.description = description;
 		this.userId = userId;
-	}	
+	}
+
 
 	public Long getAccountId() {
 		return accountId;

@@ -29,8 +29,8 @@ public class UserServiceImpl implements UserService {
 	public UserDto save(UserDto userDto) {		
 		if (userRepository.findByUserName(userDto.getUserName()) != null) {
 			 throw new UserAlreadyExistsException(UserApplicationConstants.USER_NAME_EXISTS);
-		}		
-		
+		}
+
 		return userMapper.convertEntityToDto(userRepository.save(userMapper.convertDtoToEntity(userDto)));
 	}
 
@@ -73,7 +73,13 @@ public class UserServiceImpl implements UserService {
 		userRepository.deleteAll();
 	}
 	
-	public UserDto findByUserName(String name) {		
-		return userMapper.convertEntityToDto(userRepository.findByUserName(name));
+	public UserDto findByUserName(String userName) {
+		User user =  userRepository.findByUserName(userName);
+
+		if (user == null) {
+			throw new UserNotFoundException(UserApplicationConstants.NOT_FOUND_404);
+		}
+
+		return userMapper.convertEntityToDto(user);
 	}
 }
