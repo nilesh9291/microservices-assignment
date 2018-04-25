@@ -3,13 +3,13 @@ package com.rest.aggregator.wrapper;
 import java.util.List;
 
 import com.rest.aggregator.enums.UserAccountsAggregatorResponseStatus;
-import com.rest.aggregator.wrapper.UserAccountsAggregatorResponseWrapper;
+import com.rest.aggregator.exceptions.ErrorDetails;
 
 public class UserAccountsAggregatorResponseWrapper<T> {
 
     private UserAccountsAggregatorResponseStatus status;
     private T data;
-    private List<String> errors;
+    private List<ErrorDetails> errorDetails;
 
     public UserAccountsAggregatorResponseWrapper() {
         // no-arg constructor
@@ -20,9 +20,10 @@ public class UserAccountsAggregatorResponseWrapper<T> {
         this.data = data;
     }
 
-    public UserAccountsAggregatorResponseWrapper(UserAccountsAggregatorResponseStatus status, List<String> errors) {
+    public UserAccountsAggregatorResponseWrapper(UserAccountsAggregatorResponseStatus status, T data, List<ErrorDetails> errorDetails) {
         this.status = status;
-        this.errors = errors;
+        this.data = data;
+        this.errorDetails = errorDetails;
     }
 
     public UserAccountsAggregatorResponseStatus getStatus() {
@@ -41,16 +42,16 @@ public class UserAccountsAggregatorResponseWrapper<T> {
         this.data = data;
     }
 
-	public List<String> getErrors() {
-		return errors;
-	}
+    public List<ErrorDetails> getErrorDetails() {
+        return errorDetails;
+    }
 
-	public void setErrors(List<String> errors) {
-		this.errors = errors;
-	}
+    public void setErrorDetails(List<ErrorDetails> errorDetails) {
+        this.errorDetails = errorDetails;
+    }
 
-	@Override
-	public String toString() {
-		return "UserAccountsAggregatorResponseWrapper [status=" + status + ", data=" + data + ", errors=" + errors + "]";
-	}	
+    @Override
+    public String toString() {
+        return "UserAccountsAggregatorResponseWrapper [status=" + status + ", data=" + data + ", errorDetails=" + errorDetails + "]";
+    }
 }

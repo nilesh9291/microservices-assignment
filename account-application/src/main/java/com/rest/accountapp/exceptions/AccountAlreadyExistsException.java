@@ -1,10 +1,16 @@
 package com.rest.accountapp.exceptions;
 
 
-public class AccountAlreadyExistsException extends RuntimeException { 
+import org.springframework.http.HttpStatus;
+
+public class AccountAlreadyExistsException extends AccountBaseException {
 	private static final long serialVersionUID = 1L;
- 
-    public AccountAlreadyExistsException(String message) {
-        super(message);
+
+    public AccountAlreadyExistsException() {
+
+    }
+
+    public AccountAlreadyExistsException(HttpStatus statusCode, String errorMessage) {
+        super(statusCode,errorMessage);
     }
 }

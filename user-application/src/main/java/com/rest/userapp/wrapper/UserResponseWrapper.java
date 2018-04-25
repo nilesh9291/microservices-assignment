@@ -3,12 +3,13 @@ package com.rest.userapp.wrapper;
 import java.util.List;
 
 import com.rest.userapp.enums.UserResponseStatus;
+import com.rest.userapp.exceptions.ErrorDetails;
 
 public class UserResponseWrapper<T> {
 
     private UserResponseStatus status;
     private T data;
-    private List<String> errors;
+    private List<ErrorDetails> errorDetails;
 
     public UserResponseWrapper() {
         // no-arg constructor
@@ -19,9 +20,10 @@ public class UserResponseWrapper<T> {
         this.data = data;
     }
 
-    public UserResponseWrapper(UserResponseStatus status, List<String> errors) {
+    public UserResponseWrapper(UserResponseStatus status, T data, List<ErrorDetails> errorDetails) {
         this.status = status;
-        this.errors = errors;
+        this.data = data;
+        this.errorDetails = errorDetails;
     }
 
     public UserResponseStatus getStatus() {
@@ -40,16 +42,16 @@ public class UserResponseWrapper<T> {
         this.data = data;
     }
 
-	public List<String> getErrors() {
-		return errors;
-	}
+    public List<ErrorDetails> getErrorDetails() {
+        return errorDetails;
+    }
 
-	public void setErrors(List<String> errors) {
-		this.errors = errors;
-	}
+    public void setErrorDetails(List<ErrorDetails> errorDetails) {
+        this.errorDetails = errorDetails;
+    }
 
-	@Override
+    @Override
 	public String toString() {
-		return "UserResponseWrapper [status=" + status + ", data=" + data + ", errors=" + errors + "]";
+		return "UserResponseWrapper [status=" + status + ", data=" + data + ", errorDetails=" + errorDetails + "]";
 	}	
 }

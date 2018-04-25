@@ -1,14 +1,14 @@
-package com.rest.userapp.exception;
+package com.rest.aggregator.exceptions;
 
 import java.util.List;
 
-public class UserExceptionResponse {
+public class UserAccountsExceptionResponse {
 
 	private String errorCode;
 	private String errorMessage;
 	private List<String> errors;
 
-	public UserExceptionResponse() {
+	public UserAccountsExceptionResponse() {
 	}
 
 	public String getErrorCode() {

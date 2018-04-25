@@ -2,8 +2,8 @@ package com.rest.userapp.service.impl
 
 import com.rest.userapp.dto.UserDto
 import com.rest.userapp.entity.User
-import com.rest.userapp.exception.UserAlreadyExistsException
-import com.rest.userapp.exception.UserNotFoundException
+import com.rest.userapp.exceptions.UserAlreadyExistsException
+import com.rest.userapp.exceptions.UserNotFoundException
 import com.rest.userapp.mapper.UserMapper
 import com.rest.userapp.repository.UserRepository
 import spock.lang.Specification

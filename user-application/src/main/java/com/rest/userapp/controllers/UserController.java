@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiResponses;
 
 /**
  * This controller class specifies the operations performed on a user.
- * The typical operations performed includes the create, update, retrive, retriveAll, delete and deleteAll operations.  
+ * The typical operations performed includes the create, update, retrieve, retrieveAll, delete and deleteAll operations.
  * @author ii
  *
  */
@@ -51,9 +51,9 @@ public class UserController {
 	 */
 	@ApiOperation(value = "Add an user")
 	@ApiResponses(value = {
-            @ApiResponse(code = 201, message = UserApplicationConstants.CREATED_201),
-            @ApiResponse(code = 401, message = UserApplicationConstants.NOT_AUTHORIZED_401),
-            @ApiResponse(code = 403, message = UserApplicationConstants.FORBIDDEN_403)
+            @ApiResponse(code = 201, message = UserApplicationConstants.USER_CREATED),
+            @ApiResponse(code = 401, message = UserApplicationConstants.NOT_AUTHORIZED),
+            @ApiResponse(code = 403, message = UserApplicationConstants.FORBIDDEN)
     	}
     )
 	@PostMapping
@@ -63,8 +63,8 @@ public class UserController {
 
 	// ------------------- Update a User-------------------------------------------
 	/**
-	 * The method updatets an existing record from the database table for the user entity.
-	 * On successful updation the response is returned in jsend format.
+	 * The method updates an existing record from the database table for the user entity.
+	 * On successful update the response is returned in jsend format.
 	 * The response includes the status as string "SUCCESS / FAIL / ERROR / PARTIAL", data as array and the error object along with the error code and error message if any.    
 	 * @param userId and userDto
 	 * @return response Entity with a Response Wrapper
@@ -72,9 +72,9 @@ public class UserController {
 	 */
 	@ApiOperation(value = "Update an user")
 	@ApiResponses(value = {
-            @ApiResponse(code = 201, message = UserApplicationConstants.SUCCESS_200),
-            @ApiResponse(code = 401, message = UserApplicationConstants.NOT_AUTHORIZED_401),
-            @ApiResponse(code = 403, message = UserApplicationConstants.FORBIDDEN_403)
+            @ApiResponse(code = 201, message = UserApplicationConstants.SUCCESS),
+            @ApiResponse(code = 401, message = UserApplicationConstants.NOT_AUTHORIZED),
+            @ApiResponse(code = 403, message = UserApplicationConstants.FORBIDDEN)
     	}
     )
 	@PutMapping(value = "/{userId}")
@@ -84,8 +84,8 @@ public class UserController {
 
 	// -------------------Retrieve Single User ------------------------------------------
 	/**
-	 * The method retrives a single record from the database table for the user entity.
-	 * On successful retrival the response is returned in jsend format.
+	 * The method retrieves a single record from the database table for the user entity.
+	 * On successful retrieval the response is returned in jsend format.
 	 * The response includes the status as string "SUCCESS / FAIL / ERROR / PARTIAL", data as array and the error object along with the error code and error message if any.    
 	 * @param userId
 	 * @return response Entity with a Response Wrapper
@@ -93,8 +93,8 @@ public class UserController {
 	 */
 	@ApiOperation(value = "Search an user with an ID", response = UserDto.class)
 	@ApiResponses(value = {
-            @ApiResponse(code = 200, message = UserApplicationConstants.SUCCESS_200),
-            @ApiResponse(code = 404, message = UserApplicationConstants.NOT_FOUND_404)
+            @ApiResponse(code = 200, message = UserApplicationConstants.SUCCESS),
+            @ApiResponse(code = 404, message = UserApplicationConstants.USER_NOT_FOUND)
     	}
     )
 	@GetMapping(value = "/{userId}")
@@ -104,18 +104,18 @@ public class UserController {
 
 	// -------------------Retrieve All Users ------------------------------------------
 	/**
-	 * The method retrives all the records from the database table for the user entity.
-	 * On successful retrival the response is returned in jsend format.
+	 * The method retrieves all the records from the database table for the user entity.
+	 * On successful retrieval the response is returned in jsend format.
 	 * The response includes the status as string "SUCCESS / FAIL / ERROR / PARTIAL", data as array and the error object along with the error code and error message if any.    
 	 * @return response Entity with a Response Wrapper
 	 * @see ResponseEntity<UserResponseWrapper<List<UserDto>>>
 	 */
 	@ApiOperation(value = "View a list of available users",response = Iterable.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = UserApplicationConstants.SUCCESS_200),
-            @ApiResponse(code = 401, message = UserApplicationConstants.NOT_AUTHORIZED_401),
-            @ApiResponse(code = 403, message = UserApplicationConstants.FORBIDDEN_403),
-            @ApiResponse(code = 404, message = UserApplicationConstants.NOT_FOUND_404)
+            @ApiResponse(code = 200, message = UserApplicationConstants.SUCCESS),
+            @ApiResponse(code = 401, message = UserApplicationConstants.NOT_AUTHORIZED),
+            @ApiResponse(code = 403, message = UserApplicationConstants.FORBIDDEN),
+            @ApiResponse(code = 404, message = UserApplicationConstants.USER_NOT_FOUND)
     	}
     )
 	@GetMapping(value = "/")
@@ -126,15 +126,15 @@ public class UserController {
 	// ------------------- Delete a User -----------------------------------------
 	/**
 	 * The method deletes a single record from the database table for the user entity.
-	 * On successful deletion no respone is returned.	 
+	 * On successful deletion no response is returned.
 	 * @param userId
 	 */
 	@ApiOperation(value = "Delete an user")
 	@ApiResponses(value = {
-            @ApiResponse(code = 200, message = UserApplicationConstants.SUCCESS_200),
-            @ApiResponse(code = 401, message = UserApplicationConstants.NOT_AUTHORIZED_401),
-            @ApiResponse(code = 403, message = UserApplicationConstants.FORBIDDEN_403),
-            @ApiResponse(code = 404, message = UserApplicationConstants.NOT_FOUND_404)
+            @ApiResponse(code = 200, message = UserApplicationConstants.SUCCESS),
+            @ApiResponse(code = 401, message = UserApplicationConstants.NOT_AUTHORIZED),
+            @ApiResponse(code = 403, message = UserApplicationConstants.FORBIDDEN),
+            @ApiResponse(code = 404, message = UserApplicationConstants.USER_NOT_FOUND)
     	}
     )
 	@DeleteMapping(value = "/{userId}")
@@ -145,15 +145,15 @@ public class UserController {
 	// ------------------- Delete All Users -----------------------------
 	/**
 	 * The method deletes all the records from the database table for the user entity.
-	 * On successful deletion no respone is returned.
+	 * On successful deletion no response is returned.
 	 * @return void
 	 */
 	@ApiOperation(value = "Delete all users")
 	@ApiResponses(value = {
-            @ApiResponse(code = 200, message = UserApplicationConstants.SUCCESS_200),
-            @ApiResponse(code = 401, message = UserApplicationConstants.NOT_AUTHORIZED_401),
-            @ApiResponse(code = 403, message = UserApplicationConstants.FORBIDDEN_403),
-            @ApiResponse(code = 404, message = UserApplicationConstants.NOT_FOUND_404)
+            @ApiResponse(code = 200, message = UserApplicationConstants.SUCCESS),
+            @ApiResponse(code = 401, message = UserApplicationConstants.NOT_AUTHORIZED),
+            @ApiResponse(code = 403, message = UserApplicationConstants.FORBIDDEN),
+            @ApiResponse(code = 404, message = UserApplicationConstants.USER_NOT_FOUND)
     	}
     )
 	@DeleteMapping(value = "/")

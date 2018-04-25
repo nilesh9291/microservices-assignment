@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,8 +18,8 @@ import com.rest.aggregator.constants.UserAccountsAggregatorConstants;
 import com.rest.aggregator.dto.AccountDetailsDto;
 import com.rest.aggregator.dto.UserAccountsAggregatorDto;
 import com.rest.aggregator.dto.UserDetailsDto;
-import com.rest.aggregator.exception.UserAccountsNotFoundException;
-import com.rest.aggregator.exception.UsersNotFoundException;
+import com.rest.aggregator.exceptions.UserAccountsNotFoundException;
+import com.rest.aggregator.exceptions.UsersNotFoundException;
 import com.rest.aggregator.service.UserAccountsAggregatorService;
 import com.rest.aggregator.wrapper.UserAccountsAggregatorResponseWrapper;
 
@@ -34,7 +35,7 @@ public class UserAccountsAggregatorServiceImpl implements UserAccountsAggregator
 		userDetailsList = this.getAllUsers();
 				
 		if(userDetailsList == null || userDetailsList.size() == 0) {
-			throw new UserAccountsNotFoundException(UserAccountsAggregatorConstants.NOT_FOUND_404);
+			throw new UserAccountsNotFoundException(HttpStatus.NOT_FOUND,UserAccountsAggregatorConstants.USER_DETAILS_NOT_FOUND);
 		}
 				
 		for (UserDetailsDto userDetailsDto : userDetailsList) {
@@ -57,13 +58,13 @@ public class UserAccountsAggregatorServiceImpl implements UserAccountsAggregator
 			e.printStackTrace();
 		}
 		
-		if (userList.getBody() == null) {
-			throw new UsersNotFoundException(UserAccountsAggregatorConstants.NOT_FOUND_404);
+		if (userList == null || userList.getBody() == null) {
+			throw new UsersNotFoundException(HttpStatus.NOT_FOUND,UserAccountsAggregatorConstants.USER_DETAILS_NOT_FOUND);
 		}
 
 		return userList.getBody().getData();
 	}
-	
+
 	private void getAccountDetailsByUser(UserDetailsDto userDetailsDto) {
 		String getAllUrl = "http://localhost:8081/account-application/accounts/byUser/{userId}";
 
@@ -77,7 +78,7 @@ public class UserAccountsAggregatorServiceImpl implements UserAccountsAggregator
 
 		} catch(Exception exception) {
 			exception.printStackTrace();
-			//throw new UserAccountsExceptionResponse(exception.getMessage());
+			//throw new UserAccountsExceptionResponse(exceptions.getMessage());
 		}
 		
 		if (accountList.getBody().getData() != null) {

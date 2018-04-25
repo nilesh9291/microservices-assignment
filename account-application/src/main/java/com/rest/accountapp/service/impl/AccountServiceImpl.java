@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.rest.accountapp.constants.AccountAppConstants;
@@ -28,7 +29,7 @@ public class AccountServiceImpl implements AccountService {
 	@Transactional
 	public AccountDto save(com.rest.accountapp.dto.AccountDto accountDto) {
 		if (accountRepository.findByTypeAndUserId(accountDto.getType(),accountDto.getUserId()) > 0) {
-			throw new AccountAlreadyExistsException(AccountAppConstants.ACCOUNT_TYPE_EXISTS);
+			throw new AccountAlreadyExistsException(HttpStatus.CONFLICT, AccountAppConstants.ACCOUNT_TYPE_ALREADY_EXISTS);
 		}
 		
 		accountDto.setAccountNumber(String.valueOf(System.currentTimeMillis()));
@@ -36,6 +37,7 @@ public class AccountServiceImpl implements AccountService {
 		return accountMapper.convertEntityToDto(accountRepository.save(accountMapper.convertDtoToEntity(accountDto)));
 	}
 
+	@Transactional
 	public AccountDto update(AccountDto accountDto) {		
 		return accountMapper.convertEntityToDto(accountRepository.save(accountMapper.convertDtoToEntity(accountDto)));
 	}
@@ -44,7 +46,7 @@ public class AccountServiceImpl implements AccountService {
 		Account account =  accountRepository.findOne(accountId);
 		
 		if (account == null) {
-            throw new AccountNotFoundException(AccountAppConstants.NOT_FOUND_404);
+            throw new AccountNotFoundException(HttpStatus.NOT_FOUND,AccountAppConstants.ACCOUNT_NOT_FOUND);
         }
 		
 		return accountMapper.convertEntityToDto(account);
@@ -54,24 +56,26 @@ public class AccountServiceImpl implements AccountService {
 		List<Account> accountList = accountRepository.findAll();
 		
 		if(accountList == null || accountList.size() == 0) {
-			throw new AccountNotFoundException(AccountAppConstants.NOT_FOUND_404);
+			throw new AccountNotFoundException(HttpStatus.NOT_FOUND,AccountAppConstants.ACCOUNT_NOT_FOUND);
 		}
 				
 		return accountList.stream()
 				.map(account -> accountMapper.convertEntityToDto(account))
 				.collect(Collectors.toList());
-	}	
+	}
 
+	@Transactional
 	public void delete(long accountId) {
 		Account account =  accountRepository.findOne(accountId);
 		
 		if (account == null) {
-            throw new AccountNotFoundException(AccountAppConstants.NOT_FOUND_404);
+            throw new AccountNotFoundException(HttpStatus.NOT_FOUND,AccountAppConstants.ACCOUNT_NOT_FOUND);
         }
 				
 		accountRepository.delete(accountId);
 	}
-	
+
+	@Transactional
 	public void deleteAll() {
 		accountRepository.deleteAll();
 	}

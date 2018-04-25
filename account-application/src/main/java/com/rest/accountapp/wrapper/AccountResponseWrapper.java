@@ -3,12 +3,13 @@ package com.rest.accountapp.wrapper;
 import java.util.List;
 
 import com.rest.accountapp.enums.AccountResponseStatus;
+import com.rest.accountapp.exceptions.ErrorDetails;
 
 public class AccountResponseWrapper<T> {
 
     private AccountResponseStatus status;
     private T data;
-    private List<String> errors;
+    private List<ErrorDetails> errorDetails;
 
     public AccountResponseWrapper() {
         // no-arg constructor
@@ -19,9 +20,10 @@ public class AccountResponseWrapper<T> {
         this.data = data;
     }
 
-    public AccountResponseWrapper(AccountResponseStatus status, List<String> errors) {
+    public AccountResponseWrapper(AccountResponseStatus status, T data, List<ErrorDetails> errorDetails) {
         this.status = status;
-        this.errors = errors;
+        this.data = data;
+        this.errorDetails = errorDetails;
     }
 
     public AccountResponseStatus getStatus() {
@@ -40,16 +42,16 @@ public class AccountResponseWrapper<T> {
         this.data = data;
     }
 
-	public List<String> getErrors() {
-		return errors;
-	}
+    public List<ErrorDetails> getErrorDetails() {
+        return errorDetails;
+    }
 
-	public void setErrors(List<String> errors) {
-		this.errors = errors;
-	}
+    public void setErrorDetails(List<ErrorDetails> errorDetails) {
+        this.errorDetails = errorDetails;
+    }
 
-	@Override
-	public String toString() {
-		return "AccountResponseWrapper [status=" + status + ", data=" + data + ", errors=" + errors + "]";
-	}	
+    @Override
+    public String toString() {
+        return "AccountResponseWrapper [status=" + status + ", data=" + data + ", errorDetails=" + errorDetails + "]";
+    }
 }
