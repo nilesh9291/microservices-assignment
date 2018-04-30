@@ -1,11 +1,12 @@
 package com.rest.accountapp.entity;
 
-import java.io.Serializable;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
 public class Account implements Serializable {
@@ -16,13 +17,28 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String type;
-    
-    private String accountNumber;
+	/**
+	 * Account type e.g. Savings, Current, Loan
+	 */
+	@NotEmpty
+	private String type;
 
-    private String description;
+	/**
+	 * Account number
+	 */
+	@NotEmpty
+	private String accountNumber;
 
-    private Long userId;
+	/**
+	 * Account Description
+	 */
+	@NotEmpty
+	private String description;
+
+	/**
+	 * User Id. There must be a user associated with the account
+	 */
+	private Long userId;
     
     public Account() {
     	
@@ -37,7 +53,6 @@ public class Account implements Serializable {
 	}
 
 	public Account(String type, String accountNumber, String description, Long userId) {
-		super();
 		this.type = type;
 		this.accountNumber = accountNumber;
 		this.description = description;
@@ -84,9 +99,4 @@ public class Account implements Serializable {
 		this.userId = userId;
 	}
 
-	@Override
-	public String toString() {
-		return "Account [id=" + id + ", type=" + type + ", accountNumber=" + accountNumber + ", description="
-				+ description + ", userId=" + userId + "]";
-	}		
 }

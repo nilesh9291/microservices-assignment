@@ -6,10 +6,6 @@ import org.springframework.http.HttpStatus;
 public class UserAlreadyExistsException extends UserBaseException {
 	private static final long serialVersionUID = 1L;
 
-    public UserAlreadyExistsException() {
-
-    }
-
     public UserAlreadyExistsException(HttpStatus statusCode, String errorMessage) {
         super(statusCode,errorMessage);
     }

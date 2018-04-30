@@ -1,9 +1,9 @@
 package com.rest.accountapp.wrapper;
 
-import java.util.List;
-
 import com.rest.accountapp.enums.AccountResponseStatus;
 import com.rest.accountapp.exceptions.ErrorDetails;
+
+import java.util.List;
 
 public class AccountResponseWrapper<T> {
 
@@ -12,7 +12,6 @@ public class AccountResponseWrapper<T> {
     private List<ErrorDetails> errorDetails;
 
     public AccountResponseWrapper() {
-        // no-arg constructor
     }
 
     public AccountResponseWrapper(AccountResponseStatus status, T data) {
@@ -20,9 +19,8 @@ public class AccountResponseWrapper<T> {
         this.data = data;
     }
 
-    public AccountResponseWrapper(AccountResponseStatus status, T data, List<ErrorDetails> errorDetails) {
+    public AccountResponseWrapper(AccountResponseStatus status, List<ErrorDetails> errorDetails) {
         this.status = status;
-        this.data = data;
         this.errorDetails = errorDetails;
     }
 

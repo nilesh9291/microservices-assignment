@@ -6,9 +6,6 @@ public class UserBaseException extends RuntimeException{
 	private HttpStatus statusCode;
 	private String errorMessage;
 
-	public UserBaseException() {
-	}
-
 	public UserBaseException(HttpStatus statusCode, String errorMessage) {
 		super();
 		this.statusCode = statusCode;

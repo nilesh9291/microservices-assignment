@@ -1,9 +1,9 @@
 package com.rest.userapp.wrapper;
 
-import java.util.List;
-
 import com.rest.userapp.enums.UserResponseStatus;
 import com.rest.userapp.exceptions.ErrorDetails;
+
+import java.util.List;
 
 public class UserResponseWrapper<T> {
 
@@ -12,7 +12,6 @@ public class UserResponseWrapper<T> {
     private List<ErrorDetails> errorDetails;
 
     public UserResponseWrapper() {
-        // no-arg constructor
     }
 
     public UserResponseWrapper(UserResponseStatus status, T data) {
@@ -20,9 +19,8 @@ public class UserResponseWrapper<T> {
         this.data = data;
     }
 
-    public UserResponseWrapper(UserResponseStatus status, T data, List<ErrorDetails> errorDetails) {
+    public UserResponseWrapper(UserResponseStatus status, List<ErrorDetails> errorDetails) {
         this.status = status;
-        this.data = data;
         this.errorDetails = errorDetails;
     }
 

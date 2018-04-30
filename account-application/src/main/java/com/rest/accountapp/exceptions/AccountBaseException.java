@@ -6,9 +6,6 @@ public class AccountBaseException extends RuntimeException{
 	private HttpStatus statusCode;
 	private String errorMessage;
 
-	public AccountBaseException() {
-	}
-
 	public AccountBaseException(HttpStatus statusCode, String errorMessage) {
 		super();
 		this.statusCode = statusCode;

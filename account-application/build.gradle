@@ -45,22 +45,38 @@ dependencies {
 	runtime('org.springframework.boot:spring-boot-devtools')
 	testCompile('com.google.code.gson:gson:2.8.0')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile ('io.rest-assured:spring-mock-mvc:3.0.3')
 
 	//spock
-	testCompile 'org.springframework.boot:spring-boot-starter-test'
-	testCompile 'junit:junit:4.12'
-	testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
-	testCompile 'org.codehaus.groovy:groovy-all:2.4.7'
+	def spockVersion = '1.1-groovy-2.4-rc-4'
+
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+	testCompile("org.spockframework:spock-core:$spockVersion")
+	testCompile("org.spockframework:spock-spring:$spockVersion")
+	testCompile("com.blogspot.toomuchcoding:spock-subjects-collaborators-extension:1.2.1")
+	// needed for mocking in Spock
+	//testCompile("cglib:cglib-nodep:2.2")
 	testCompile 'cglib:cglib-nodep:3.1'
-	testCompile 'net.bytebuddy:byte-buddy-gradle-plugin:1.6.12'
-	testCompile 'org.objenesis:objenesis:2.1'
-	testCompile( 'com.athaydes:spock-reports:1.2.12' ) {
-		transitive = false
-	}
-	testCompile 'org.slf4j:slf4j-api:1.7.13'
-	testCompile 'org.slf4j:slf4j-simple:1.7.13'
+
+
+	//testCompile 'junit:junit:4.12'
+	//testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+	//testCompile 'org.codehaus.groovy:groovy-all:2.4.7'
+	//testCompile 'cglib:cglib-nodep:3.1'
+	//testCompile 'net.bytebuddy:byte-buddy-gradle-plugin:1.6.12'
+	//testCompile 'org.objenesis:objenesis:2.1'
+	//testCompile 'com.jayway.jsonpath:json-path:0.8.1'
+	//testCompile 'com.jayway.jsonpath:json-path-assert:0.8.1'
+	//testCompile( 'com.athaydes:spock-reports:1.2.12' ) {
+	//	transitive = false
+	//}
+	//testCompile 'org.slf4j:slf4j-api:1.7.13'
+	//testCompile 'org.slf4j:slf4j-simple:1.7.13'
+
+	//compile("org.springframework.plugin:spring-plugin-core:1.1.0.RELEASE")
+
 
 	// https://mvnrepository.com/artifact/cglib/cglib-nodep
-	compile group: 'cglib', name: 'cglib-nodep', version: '2.2'
+	//compile group: 'cglib', name: 'cglib-nodep', version: '2.2'
 
 }

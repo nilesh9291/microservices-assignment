@@ -1,13 +1,11 @@
 package com.rest.userapp.dto;
 
-import java.io.Serializable;
+import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
-import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 
 /**
  * This dto class act as a data transfer object between the controller and the data layer.  
@@ -39,12 +37,8 @@ public class UserDto implements Serializable {
     	
     @ApiModelProperty(notes = "User's age")
     @Min(value = 18, message="User's age must be above 18.")
-    private int age;
-    
-	public UserDto() {
-		
-	}
-	
+    private Long age;
+
 	public Long getUserId() {
 		return userId;
 	}
@@ -53,15 +47,17 @@ public class UserDto implements Serializable {
 		this.userId = userId;
 	}
 
-	public UserDto(String userName, String firstName, String lastName, int age) {
+	public UserDto() {
+	}
+
+	public UserDto(String userName, String firstName, String lastName, Long age) {
 		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;
 	}
 
-	public UserDto(Long userId, String userName, String firstName, String lastName, int age) {
-		super();
+	public UserDto(Long userId, String userName, String firstName, String lastName, Long age) {
 		this.userId = userId;
 		this.userName = userName;
 		this.firstName = firstName;
@@ -93,11 +89,11 @@ public class UserDto implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public int getAge() {
+	public Long getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Long age) {
 		this.age = age;
 	}
 
