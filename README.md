@@ -1,4 +1,4 @@
-PNC Microservices Assignment
+Microservices Assignment
 
 Follow the swagger URL's to understand the API's input, output and error codes.
 
